@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: vocalcode-ai
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm --prefix server ci && npm --prefix client ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: VITE_PUBLIC_DEMO
+        value: "true"

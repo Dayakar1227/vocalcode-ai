@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { @apply bg-canvas font-sans text-ink; min-width: 320px; }
+  h1, h2, h3, .font-display { font-family: "Bricolage Grotesque", system-ui, sans-serif; letter-spacing: -0.02em; }
+  :focus-visible { outline: 2px solid #2B4BF2; outline-offset: 2px; border-radius: 8px; }
+  button, a, input, select { -webkit-tap-highlight-color: transparent; }
+}
+
+@layer components {
+  .panel { @apply rounded-2xl border border-line/90 bg-white shadow-panel; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-cobalt text-white shadow-sm hover:-translate-y-0.5 hover:bg-cobalt-dark hover:shadow-md; }
+  .btn-ghost { @apply btn border border-line bg-white text-ink shadow-sm hover:border-ink-faint hover:bg-canvas; }
+  .btn-dark { @apply btn bg-white/10 text-white hover:bg-white/20; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium; }
+}
+
+.app-shell {
+  background:
+    radial-gradient(ellipse at 70% 0%, rgba(43, 75, 242, .035), transparent 34rem),
+    #f6f7fa;
+}
+
+.dashboard-hero {
+  background:
+    radial-gradient(circle at 88% 18%, rgba(119, 142, 255, .34), transparent 16rem),
+    radial-gradient(circle at 74% 112%, rgba(48, 77, 220, .5), transparent 20rem),
+    linear-gradient(118deg, #171b26 0%, #202c62 60%, #283eae 100%);
+}
+
+/* Live voice waveform: the stage's signature element */
+@keyframes wave { 0%, 100% { transform: scaleY(.18); } 50% { transform: scaleY(1); } }
+.wave-bar { transform-origin: center; transform: scaleY(.18); }
+.wave-live .wave-bar { animation: wave 1s ease-in-out infinite; }
+.wave-speaking .wave-bar { animation: wave 1.5s ease-in-out infinite; opacity: .7; }
+
+@keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(214,69,61,.5); } 100% { box-shadow: 0 0 0 18px rgba(214,69,61,0); } }
+.mic-live { animation: pulse-ring 1.4s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-live .wave-bar, .wave-speaking .wave-bar, .mic-live { animation: none; }
+  .wave-live .wave-bar { transform: scaleY(.7); }
+}
+
+@media print {
+  aside, .no-print { display: none !important; }
+  body { background: white; }
+}
